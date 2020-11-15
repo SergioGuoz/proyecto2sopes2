@@ -1,0 +1,51 @@
+db.casos.aggregate([{ "$group":{_id:'$location',count:{$sum:1} }},{$sort:{"count":-1}},{$limit: 3}])
+db.casos.aggregate([{ $sortByCount: "$location" },{$limit: 3}])
+
+db.casos.find().sort({_id:-1}).limit(1);
+
+
+db.collection.aggregate(
+	[
+		{ "$group": { "_id": {"location":  "$location"}, "count": { "$sum": 1 }}},    
+        	{ "$project": { "count": 1,"percentage": { "$concat": [ { "$substr": [ { "$multiply": [ { "$divide": [ "$count", {"$literal":  }] }, 7 ] }, 0,2 ] }, "", "%" ]}}}
+    ]
+)
+
+db.casos.save({name:"Carlos",location:"Mixco","age":35,infectedtype:"communitary",state:"asymptomatic"})
+db.casos.save({name:"Juan",location:"Villa Nueva","age":61,infectedtype:"communitary",state:"asymptomatic"})
+db.casos.save({name:"Manuel",location:"Villa Nueva","age":67,infectedtype:"communitary",state:"asymptomatic"})
+db.casos.save({name:"Andrea",location:"Villa Nueva","age":45,infectedtype:"communitary",state:"asymptomatic"})
+db.casos.save({name:"Jose",location:"Peten","age":56,infectedtype:"communitary",state:"asymptomatic"})
+
+'{name:"Pablo Mixco",location:"Mixco","age":62,infectedtype:"communitary",state:"asymptomatic"}'
+LPUSH casos '{name:"Juan",location:"Villa Nueva","age":61,infectedtype:"communitary",state:"asymptomatic"}'
+LPUSH casos '{name:"Andrea",location:"Villa Nueva","age":45,infectedtype:"communitary",state:"asymptomatic"}'
+LPUSH casos '{name:"Jose",location:"Peten","age":56,infectedtype:"communitary",state:"asymptomatic"}'
+LPUSH casos '{name:"Manuel",location:"Villa Nueva","age":67,infectedtype:"communitary",state:"asymptomatic"}'
+
+LINDEX casos 0
+
+
+//clientRedis.set("dato","prueba");
+        //await clientRedis.get("dato", function(err:any, reply:any) {
+        //    console.log("RESPUESTA ",err,reply); // Will print `OK`
+        //  });
+        /*
+            
+                await clientRedis.rpush(['casos', 
+        '{"name":"Pablo Mixco","location":"Mixco","age":62,"infectedtype":"communitary","state":"asymptomatic"}',
+        '{"name":"Juan","location":"Villa Nueva","age":61,"infectedtype":"communitary","state":"asymptomatic"}',
+        '{"name":"Prueba","location":"Villa Nueva","age":45,"infectedtype":"communitary","state":"asymptomatic"}',
+        '{"name":"Jose","location":"Peten","age":56,"infectedtype":"communitary","state":"asymptomatic"}',
+        '{"name":"Manuel","location":"Villa Nueva","age":67,"infectedtype":"communitary","state":"asymptomatic"}'], function(err:any, reply:any) {
+            console.log("INSERT ",reply); //prints 2
+        });
+
+                clientRedis.lrange('casos', 0, 10, function(err:any, reply:any) {
+                    console.log("LRANE",err,reply); // ['angularjs', 'backbone']
+                });
+        */
+
+
+
+
