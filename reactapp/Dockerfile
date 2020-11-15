@@ -1,17 +1,16 @@
-FROM tiangolo/node-frontend:10 as builder
+FROM node:13.12.0-alpine
+# set working directory
 WORKDIR /app
-COPY package*.json /app/
-RUN npm install
-COPY ./ /app/
-RUN npm run build
-
-FROM nginx:alpine
-
-WORKDIR /usr/share/nginx/html
-
-RUN rm -rf ./*
-
-COPY --from=builder /app/build .
-
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+# add /app/node_modules/.bin to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+# install app dependencies
+COPY package.json ./
+COPY package-lock.json ./
+RUN npm install --silent
+RUN npm install react-scripts@3.4.1 -g --silent
+# add app
+COPY . ./
+# start app
+CMD ["npm","start"]
+EXPOSE 3000
 

@@ -16,13 +16,13 @@ class TopDeptos extends Component{
     }
 
     componentDidMount() {
-        axios.get(`nodejs-service:3100/getTopDeptos`)
+        axios.get(`http://35.224.148.24:3100/getTopDeptos`)
           .then(res => {
             const deptos = res.data;
             this.setState({ deptos });
           });
 
-          axios.get(`nodejs-service:3100/getLastCase`)
+          axios.get(`http://35.224.148.24:3100/getLastCase`)
           .then(res => {
               console.log(res.data);
             const ultimo = res.data;//JSON.parse(JSON.stringify(res.data));

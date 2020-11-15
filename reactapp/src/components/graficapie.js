@@ -20,7 +20,7 @@ class Grafica extends Component{
 
 
     componentDidMount(){
-        axios.get(`nodejs-service:3100/getPorcentajes`)
+        axios.get(`http://35.224.148.24:3100/getPorcentajes`)
           .then(res => {
               console.log(res.data)
               let listaLabels=[];

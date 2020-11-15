@@ -21,7 +21,7 @@ class GraficaLineas extends Component{
 
 
     componentDidMount(){
-        axios.get(`nodejs-service:3100/getListadoCasos`)
+        axios.get(`http://35.224.148.24:3100/getListadoCasos`)
           .then(res => {
               console.log(res.data)
               let listaLabels=res.data.listaLabels;
